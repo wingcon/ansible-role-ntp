@@ -25,6 +25,11 @@
     ntp_config_file: "{{ __ntp_config_file }}"
   when: ntp_config_file is not defined
 
+- name: Set the ntp_keys_file variable.
+  set_fact:
+    ntp_keysfile: "{{ __ntp_keysfile }}"
+  when: ntp_config_file is not defined
+
 - name: Set the ntp_daemon variable.
   set_fact:
     ntp_daemon: "{{ __ntp_daemon }}"
@@ -79,6 +84,14 @@
     state: stopped
     enabled: false
   when: not (ntp_enabled | bool)
+
+- name: Generate ntp keys file.
+  template:
+    src: "ntp.keys.j2"
+    dest: "{{ ntp_keysfile }}"
+    mode: 0644
+  notify: restart ntp
+  when: ntp_manage_config | bool
 
 - name: Generate ntp configuration file.
   template:
