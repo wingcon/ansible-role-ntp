@@ -28,7 +28,7 @@
 - name: Set the ntp_keys_file variable.
   set_fact:
     ntp_keysfile: "{{ __ntp_keysfile }}"
-  when: ntp_config_file is not defined
+  when: ntp_keysfile is not defined
 
 - name: Set the ntp_daemon variable.
   set_fact:
