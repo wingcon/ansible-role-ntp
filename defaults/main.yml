@@ -30,3 +30,5 @@ ntp_tinker_panic: false
 ntp_skip_install: false
 
 ntp_keylines: []
+
+ntp_server_default_options: ''
