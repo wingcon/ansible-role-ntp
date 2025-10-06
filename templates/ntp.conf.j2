@@ -41,10 +41,18 @@ restrict {{ item }}
 # cryptographically authenticated.
 #restrict 192.168.123.0 mask 255.255.255.0 notrust
 
-# Enable public key cryptography.
-#crypto
+{% if ntp_tos is defined and ntp_tos|length > 0 %}
+tos {{ ntp_tos }}
+{% endif %}
 
-#includefile /etc/ntp/crypto/pw
+# Enable public key cryptography.
+{% for item in ntp_crypto %}
+crypto {{ item }}
+{% endfor %}
+
+{% if ntp_enable_crypto and ntp_crypto_include_pw_path is defined and ntp_crypto_include_pw_path|length > 0 %}
+includefile {{ ntp_crypto_include_pw_path }}
+{% endif %}
 
 # Key file containing the keys and key identifiers used when operating
 # with symmetric key cryptography.

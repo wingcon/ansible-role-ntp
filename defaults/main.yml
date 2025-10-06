@@ -32,3 +32,8 @@ ntp_skip_install: false
 ntp_keylines: []
 
 ntp_server_default_options: ''
+
+ntp_tos: ""
+
+ntp_crypto: []
+ntp_crypto_include_pw: /etc/ntp/crypto/pw
