@@ -50,7 +50,7 @@ tos {{ ntp_tos }}
 crypto {{ item }}
 {% endfor %}
 
-{% if ntp_enable_crypto and ntp_crypto_include_pw_path is defined and ntp_crypto_include_pw_path|length > 0 %}
+{% if ntp_crypto is defined and ntp_crypto|length > 0 and ntp_crypto_include_pw_path is defined and ntp_crypto_include_pw_path|length > 0 %}
 includefile {{ ntp_crypto_include_pw_path }}
 {% endif %}
 
